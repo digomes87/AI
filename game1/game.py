@@ -35,5 +35,81 @@ def print_perceptions(perceptions):
 		print('Sem percepções')
 	print()
 
-def parse_action
+def parse_action(action):
+	if action == 1:
+		return Action.Move, (0,)
+	elif action == 2:
+		return Action.Turn, -1
+	elif action == 3:
+		return Action.Turn, 1
+	elif action == 4:
+		return Action.Grab, None
+	elif action == 5:
+		return Action.Shoot, None
 
+
+def print_cave(Ioc):
+	print('--------------------------')
+	y = 0
+	while y < 4:
+		x = 0
+		while x < 4:
+			print('|_X_|' if (x, y) == Ioc else '|___|', end='')
+			x += 1
+		print()
+		y += 1
+	print()
+
+
+if __name__ == '__main__':
+
+	# init seed
+	if '-seed' in sys.argv:
+		seed = int(sys.argv[sys.argv.index('-seed')+ 1])
+		random.seed(seed)
+
+	# Define as entidades
+	cave = Cave()
+	kb = Knowledge()
+	agent = Agent()
+
+	# Mostra a introducao
+	print_intro()
+
+
+	# Execute o jogo
+	while True:
+		print('Agente:\n{}'.format(agent))
+		print_cave(agent.location)
+
+		# Percepcao na localidade corrente
+		perceptions = perceive(cave, agent.location)
+		if perceptions is None:
+			print('Game Over. Você Morreu!')
+			break
+
+		# Ativa o módulo de inteligência Artificial
+		print_perceptions(perceptions)
+
+		if '-ai' in sys.argv:
+			tell(kb, perceptions, agent.location)
+			update(kb, agent.location)
+			goal = Goal.SeekGold if not agent.has_gold else Goal.BackToEntry
+			action = ask(kb, agent.location, agent.direction, goal)
+			print('Ação:\n{} {}\n'.format(*action))
+			input('Pressione Enter para a Próxima Ação')
+		else:
+			print_actions()
+			action = int(input('Qual sua Próxima Ação'))
+			print()
+			action = parse_action(action)
+
+		# Realia ação
+		if agent.perfom(action, cave, kb):
+			print('Você percebeu um Grito.\n')
+
+		# verifica se o jogo terminou e o agente venceu
+		if agent.has_gold and agent.location == (0,0):
+			print_cave(agent.location)
+			print('Você Venceu')
+			break
