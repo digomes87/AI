@@ -3,7 +3,7 @@ import random
 
 from enumeration import Goal, Status, Action
 from entidade import Room, Agent, Knowledge, Cave
-from conhecimento
+from conhecimento import perceive, tell, update, ask
 
 
 def print_intro():
