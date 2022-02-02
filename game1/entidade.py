@@ -35,3 +35,20 @@ class Room:
         raise ValueError
 
     def is_deadly(self, danger=None):
+
+        if danger is None:
+            return self.wumpus == Status.Present or self.pit == Status.Present
+        if danger == Entity.Wumpus:
+            return self.wumpus == Status.Present
+        if danger == Entity.Pit:
+            return self.pit == Status.Present
+        raise ValueError
+
+    @property
+    def is_explored(self):
+        assert self.gold != Status.LikelyPresent
+        return self.gold != Status.Unknown
+
+    @property
+    def is_unexplored(self):
+        return not self.is_explored
