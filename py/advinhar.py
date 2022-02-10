@@ -1,11 +1,17 @@
 print("Bem vindo ao jogo")
-numero_secreto = 42
+secret_number = 42
 
-chute = input("Digite o seu numero: ")
-print("Voce digitou ", chute)
+guess = input("What is your number: ")
+print("You Guess is ", guess)
 
+guess = int(guess)
 
-if numero_secreto == int(chute):
-    print("Acertou misseravel")
+if secret_number == guess:
+    print("Sorry, wrong !!")
 else:
-    print("Mais sorte na proxima")
+    if guess > secret_number:
+        print("Your Number is Up")
+    if guess < secret_number:
+        print("Your Number is Down")
+        
+    print("Nice Tried !")
