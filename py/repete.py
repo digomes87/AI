@@ -12,9 +12,9 @@ print('(3) Hard')
 
 nivel = int(input('Tua escolha: '))
 
-if(nivel == 1):
+if nivel == 1:
     total_de_tentativas = 20
-elif(nivel == 2):
+elif nivel == 2:
     total_de_tentativas = 10
 else:
     total_de_tentativas = 5
@@ -35,13 +35,13 @@ for tentativas in range(1, total_de_tentativas + 1):
     maior = chute > numero_secreto
     menor = chute < numero_secreto
 
-    if(acertou):
+    if acertou:
         print('Acertou !!!')
         break
     else:
-        if(maior):
+        if maior:
             print('Errou, chute acima do numero secreto')
-        elif(menor):
+        elif menor:
             print('Erro, chute a abaixo do numero secreto')
 
 
