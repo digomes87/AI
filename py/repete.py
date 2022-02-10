@@ -5,9 +5,22 @@ print('##################################')
 
 numero_secreto = round(random.randrange(1, 101))
 tentativas = 3
+print('QUal o nivel de dificuldade')
+print('(1) FAcil')
+print('(2) medio')
+print('(3) Hard')
+
+nivel = int(input('Tua escolha: '))
+
+if(nivel == 1):
+    total_de_tentativas = 20
+elif(nivel == 2):
+    total_de_tentativas = 10
+else:
+    total_de_tentativas = 5
 
 
-for tentativas in range(1, tentativas + 1):
+for tentativas in range(1, total_de_tentativas + 1):
     print("Tentativas: {}".format(tentativas))
 
     chute_str = input('Digite um número: ')
