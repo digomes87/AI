@@ -6,7 +6,7 @@ class Conta:
         __ na freten do atributo é deixar o acesso a ele privado
     """
 
-    def __init__(self, numero, titular, saldo, limite):
+    def __init__(self, numero, titular, saldo, limite):  # construtor
         print("Construindo objeto ...")
         self.__numero = numero
         self.__titula = titular
@@ -19,8 +19,15 @@ class Conta:
     def deposita(self, valor):
         self.saldo += valor
 
+    def __pode_sacar(self, valor_a_sacar):
+        valor_disponivel = self.__saldo + self.__limite
+        return valor_a_sacar <= valor_disponivel
+
     def saca(self, valor):
-        self.saldo -= valor
+        if self.__pode_sacar(valor):
+            self.saldo -= valor
+        else:
+            print("Passou o limite de {}".format(self.__limite))
 
     def transfere(self, valor, origem, destino):
         origem.saca(valor)
@@ -41,3 +48,7 @@ class Conta:
     @limite.setter
     def limite(self, limite):
         self.__limite = limite
+
+    @staticmethod
+    def codigo_banco():
+        return "001"
